@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.it.xxhealth.dto.OrdersDto;
 import com.it.xxhealth.entity.Orders;
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -45,4 +46,14 @@ public interface OrdersMapper extends BaseMapper<Orders> {
             "LEFT JOIN setmeal s ON o.smId = s.smId " +
             "WHERE o.orderId = #{orderid}")
     OrdersDto getOrderDetail(@Param("orderid") Integer orderid);
+
+    /**
+     * 统计某医院某月每天的预约数量
+     */
+    @Select("SELECT DAY(orderDate) AS day, COUNT(*) AS cnt FROM orders " +
+            "WHERE hpId = #{hpid} AND YEAR(orderDate) = #{year} AND MONTH(orderDate) = #{month} " +
+            "GROUP BY DAY(orderDate)")
+    List<Map<String, Object>> countByMonth(@Param("hpid") Integer hpid,
+                                           @Param("year") int year,
+                                           @Param("month") int month);
 }

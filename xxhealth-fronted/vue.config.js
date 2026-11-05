@@ -5,7 +5,7 @@ module.exports = defineConfig({
   devServer: {
     port: 8081,
     proxy: {
-      '/api': {
+      '/tijian': {
         target: 'http://localhost:8080',
         changeOrigin: true
       }
