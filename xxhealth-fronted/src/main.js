@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 
 import 'font-awesome/css/font-awesome.min.css'
+import './assets/app.css'
 
 // 路由守卫：除登录、注册外，未登录一律跳登录页
 router.beforeEach(function (to, from, next) {
